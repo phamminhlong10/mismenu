@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "471999429790",
+    "project_id": "mismenu-e255a",
+    "storage_bucket": "mismenu-e255a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471999429790:android:cc07d3c63ea1f3b9234f8f",
+        "android_client_info": {
+          "package_name": "com.android.mismenu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471999429790-t7jo18p6jkomqla8eomkeo714ch43ipg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp0t4ImwGH-CTUk8hTG29_ZcSekz3u7Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471999429790-t7jo18p6jkomqla8eomkeo714ch43ipg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
