@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        app:showAsAction="always"
+        android:enabled="true"
+        android:id="@+id/wishlist_appbar"
+        android:icon="@drawable/ic_baseline_how_to_vote_24"
+        android:title="Wishlist" />
+</menu>

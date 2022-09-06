@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/Mismenu/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.126" />
         <entry key="..\:/android/Mismenu/app/src/main/res/layout/activity_main.xml" value="0.3170289855072464" />
         <entry key="..\:/android/Mismenu/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/android/Mismenu/app/src/main/res/layout/fragment_login.xml" value="0.161231884057971" />
         <entry key="..\:/android/Mismenu/app/src/main/res/layout/item_category.xml" value="0.31521739130434784" />
+        <entry key="..\:/android/Mismenu/app/src/main/res/layout/item_product.xml" value="0.25" />
         <entry key="..\:/android/Mismenu/app/src/main/res/layout/product_layout.xml" value="0.67" />
+        <entry key="..\:/android/Mismenu/app/src/main/res/menu/appbar_menu.xml" value="0.32447916666666665" />
       </map>
     </option>
   </component>
