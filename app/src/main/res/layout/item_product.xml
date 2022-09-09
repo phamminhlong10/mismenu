@@ -12,7 +12,6 @@
 
         <com.google.android.material.card.MaterialCardView
             style="?attr/materialCardViewFilledStyle"
-            android:clickable="true"
             android:id="@+id/cardProduct"
             android:layout_width="176dp"
             android:layout_height="wrap_content"

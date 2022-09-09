@@ -1,15 +1,16 @@
 package com.android.mismenu.features.presentaion.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.mismenu.core.util.Utils
 import com.android.mismenu.features.domain.entities.Category
-import com.android.mismenu.features.domain.entities.Image
 import com.android.mismenu.features.domain.entities.Product
-import com.android.mismenu.features.domain.repository.FirestoreManagement
+import com.android.mismenu.features.domain.repository.Authentication
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val fireStoreManagement: FirestoreManagement, private val fireStore: FirebaseFirestore):ViewModel() {
+class HomeViewModel @Inject constructor(private val authentication: Authentication, private val fireStore: FirebaseFirestore, private val util: Utils):ViewModel() {
+    private val _welcomeTitle = MutableLiveData<String>()
+    val welcomeTitle: LiveData<String>
+    get() = _welcomeTitle
+
     private val _listCategories = MutableLiveData<List<Category>>()
     val listCategory: LiveData<List<Category>>
         get() = _listCategories
@@ -26,14 +31,24 @@ class HomeViewModel @Inject constructor(private val fireStoreManagement: Firesto
     private val _listNewArrivalProducts = MutableLiveData<List<Product>>()
     val listArrivalProduct: LiveData<List<Product>>
     get() = _listNewArrivalProducts
+
+    private val _product = MutableLiveData<Product?>()
+    val product: LiveData<Product?>
+    get() = _product
+
+    private val _user = MutableLiveData<FirebaseUser?>()
+    val user: LiveData<FirebaseUser?>
+        get() = _user
+
     init {
         startGetCategories()
+        setWelcomeTitle()
+        userLogin()
     }
 
     private fun startGetCategories(){
         viewModelScope.launch {
             fetchCategories()
-            //demoAddProduct()
             fetchNewArrivalProducts()
         }
     }
@@ -52,7 +67,7 @@ class HomeViewModel @Inject constructor(private val fireStoreManagement: Firesto
     private suspend fun fetchNewArrivalProducts(){
         var listProduct = mutableListOf<Product>()
         return withContext(Dispatchers.IO){
-            fireStore.collection("product").get().addOnSuccessListener {collectionsSnapshot  ->
+            fireStore.collection("product").orderBy("timeAdded", Query.Direction.DESCENDING).get().addOnSuccessListener { collectionsSnapshot  ->
                 for (item in collectionsSnapshot){
                     listProduct.add(item.toObject<Product>())
                 }
@@ -61,26 +76,19 @@ class HomeViewModel @Inject constructor(private val fireStoreManagement: Firesto
         }
     }
 
-    private suspend fun demoAddProduct(){
-        return withContext(Dispatchers.IO){
-            val list: List<Image> = mutableListOf(
-                Image("1", "https://cdn.shopify.com/s/files/1/0177/2424/products/IMG_2306_1024x1024.jpg?v=1661464822"),
-                Image("2", "https://cdn.shopify.com/s/files/1/0177/2424/products/IMG_2310_1024x1024.jpg?v=1661464837"),
-                Image("3", "https://cdn.shopify.com/s/files/1/0177/2424/products/IMG_2307_1024x1024.jpg?v=1661464837"),
-                Image("4", "https://cdn.shopify.com/s/files/1/0177/2424/products/URSPECIALHOVERS_0006_027A0229copy_1024x1024.jpg?v=1662070424")
+    private fun setWelcomeTitle(){
+        _welcomeTitle.value = util.welcomeText()
+    }
 
-            )
-            val cate = mutableListOf<String>()
-            val doc = fireStore.collection("category").get().addOnSuccessListener { querySnapshot ->
-                querySnapshot.forEach {
-                    Log.d("DOCUMENT ID", it.id)
-                    cate.add(it.id)
-                }
-            }
-            Log.d("ID FROM CATE", "$cate")
+    fun productSelected(product: Product){
+        _product.value = product
+    }
 
-//            val product = Product("421416", "Buddies In Space Jacket (Black Denim Wash)", "", 3333400, false, list,doc)
-//            fireStore.collection("product").add(product)
-        }
+    fun navigatedToDetailProductComplete(){
+        _product.value = null
+    }
+
+    private fun userLogin(){
+        _user.value = authentication.currentUser()
     }
 }

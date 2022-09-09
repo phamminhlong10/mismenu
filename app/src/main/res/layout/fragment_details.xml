@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.android.mismenu.features.presentaion.viewmodel.DetailsViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".features.presentaion.ui.DetailsFragment">
+
+        <androidx.viewpager2.widget.ViewPager2
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_gravity="center_vertical"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/smallChip"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/mediumChip"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/largeChip"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/xLargeChip"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XL"/>
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+</layout>

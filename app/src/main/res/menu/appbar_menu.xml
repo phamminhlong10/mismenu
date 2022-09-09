@@ -5,7 +5,14 @@
     <item
         app:showAsAction="always"
         android:enabled="true"
-        android:id="@+id/wishlist_appbar"
+        android:id="@+id/cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Cart" />
+
+    <item
+        app:showAsAction="always"
+        android:enabled="true"
+        android:id="@+id/wishlist"
         android:icon="@drawable/ic_baseline_how_to_vote_24"
         android:title="Wishlist" />
 </menu>

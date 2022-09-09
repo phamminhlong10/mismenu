@@ -1,10 +1,8 @@
-package com.android.mismenu.features.domain.repository.impl
+package com.android.mismenu.features.domain.data
 
-import android.util.Log
 import com.android.mismenu.features.domain.entities.Category
 import com.android.mismenu.features.domain.repository.FirestoreManagement
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

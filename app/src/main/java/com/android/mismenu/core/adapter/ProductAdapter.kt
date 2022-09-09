@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.android.mismenu.core.util.onClickListener
 import com.android.mismenu.databinding.ItemProductBinding
 import com.android.mismenu.features.domain.entities.Product
 
-class ProductAdapter() : ListAdapter<Product, ProductAdapter.ViewHolder>(DiffCallBackProduct()) {
+class ProductAdapter(private val onClickListener: onClickListener<Product>) : ListAdapter<Product, ProductAdapter.ViewHolder>(DiffCallBackProduct()) {
     class ViewHolder(private val binding: ItemProductBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(product: Product){
             binding.product = product
@@ -29,7 +30,12 @@ class ProductAdapter() : ListAdapter<Product, ProductAdapter.ViewHolder>(DiffCal
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.bind(item)
+
+        holder.itemView.setOnClickListener{
+            onClickListener.clickListener(item)
+        }
     }
 
     class DiffCallBackProduct : DiffUtil.ItemCallback<Product>() {

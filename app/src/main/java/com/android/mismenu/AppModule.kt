@@ -3,8 +3,7 @@ package com.android.mismenu
 import com.android.mismenu.features.domain.repository.Authentication
 import com.android.mismenu.features.domain.repository.AuthenticationImpl
 import com.android.mismenu.features.domain.repository.FirestoreManagement
-import com.android.mismenu.features.domain.repository.impl.ManageCategoryImpl
-import com.google.firebase.auth.FirebaseAuth
+import com.android.mismenu.features.domain.data.ManageCategoryImpl
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
