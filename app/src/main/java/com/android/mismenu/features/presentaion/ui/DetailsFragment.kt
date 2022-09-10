@@ -15,7 +15,9 @@ import com.android.mismenu.core.adapter.ImageAdapter
 import com.android.mismenu.databinding.FragmentDetailsBinding
 import com.android.mismenu.features.presentaion.BaseFragment
 import com.android.mismenu.features.presentaion.viewmodel.DetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentDetailsBinding
     private val viewModel: DetailsViewModel by viewModels()
@@ -36,6 +38,13 @@ class DetailsFragment : BaseFragment() {
 
         viewModel.product.observe(viewLifecycleOwner, Observer{
             product -> imageAdapter.submitList(product?.imageOfProduct)
+        })
+
+        viewModel.product.observe(viewLifecycleOwner, Observer {
+            product -> if(product?.isSoldOut == true){
+                binding.addToCard.visibility = View.GONE
+                binding.soldOut.visibility = View.VISIBLE
+        }
         })
 
         binding.pager.adapter = imageAdapter

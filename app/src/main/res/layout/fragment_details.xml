@@ -1,59 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.android.mismenu.features.presentaion.viewmodel.DetailsViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".features.presentaion.ui.DetailsFragment">
 
-        <androidx.viewpager2.widget.ViewPager2
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_gravity="center_vertical"
-            app:singleSelection="true"
-            app:selectionRequired="true"
-            android:id="@+id/chipGroup"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.google.android.material.chip.Chip
-                android:id="@+id/smallChip"
-                style="@style/Widget.Material3.Chip.Filter"
+
+            <androidx.viewpager2.widget.ViewPager2
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:padding="8dp"
+                android:text="@{viewModel.product.name}"
+                style="@style/TextAppearance.Material3.HeadlineSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/descriptionProduct"
+                style="@style/MaterialAlertDialog.Material3.Body.Text"
+                android:padding="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small"/>
+                android:text="@{viewModel.product.description}"
+                />
+            <TextView
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:padding="8dp"
+                android:text="Product size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.chip.ChipGroup
+                android:layout_gravity="center"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/smallChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Small"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/mediumChip"
-                style="@style/Widget.Material3.Chip.Filter"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/mediumChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/largeChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Large"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/xLargeChip"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XL"/>
+            </com.google.android.material.chip.ChipGroup>
+            <TextView
+                android:padding="16dp"
+                style="@style/TextAppearance.Material3.HeadlineSmall"
+                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medium"/>
+                app:priceFormat="@{viewModel.product.price}"
+                />
+        </LinearLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/largeChip"
-                style="@style/Widget.Material3.Chip.Filter"
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Large"/>
+                android:layout_margin="16dp"
+                android:text="Wishlist"
+                />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/xLargeChip"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:onClick="@{() -> viewModel.onAddToCart()}"
+                android:id="@+id/addToCard"
+                app:backgroundTint="@color/purple_200"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="XL"/>
-        </com.google.android.material.chip.ChipGroup>
+                android:layout_margin="16dp"
+                android:text="Add to card"
+                app:icon="@drawable/ic_baseline_shopping_cart_24"/>
 
-    </LinearLayout>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/soldOut"
+                android:visibility="gone"
+                app:backgroundTint="@color/design_default_color_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="SOLD OUT" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

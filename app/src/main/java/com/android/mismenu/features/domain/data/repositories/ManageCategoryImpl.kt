@@ -1,13 +1,14 @@
-package com.android.mismenu.features.domain.data
+package com.android.mismenu.features.domain.data.repositories
 
 import com.android.mismenu.features.domain.entities.Category
-import com.android.mismenu.features.domain.repository.FirestoreManagement
+import com.android.mismenu.features.domain.data.datasource.remoteDataSource.FirestoreManagement
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class ManageCategoryImpl @Inject constructor(private val fireStore: FirebaseFirestore) : FirestoreManagement {
+class ManageCategoryImpl @Inject constructor(private val fireStore: FirebaseFirestore) :
+    FirestoreManagement {
 
 //    override suspend fun fetchCategories(): List<Category> {
 //        var list = listOf<Category>()

@@ -1,4 +1,4 @@
-package com.android.mismenu.features.domain.repository
+package com.android.mismenu.features.domain.data.datasource.remoteDataSource
 
 import com.android.mismenu.features.domain.entities.Category
 
