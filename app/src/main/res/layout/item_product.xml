@@ -5,6 +5,9 @@
         <variable
             name="product"
             type="com.android.mismenu.features.domain.entities.Product" />
+        <variable
+            name="viewModel"
+            type="com.android.mismenu.features.presentaion.viewmodel.HomeViewModel" />
     </data>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -55,7 +58,7 @@
 
                 </LinearLayout>
 
-                <!-- Buttons -->
+<!--                 Buttons?-->
                 <LinearLayout
                     android:layout_gravity="end"
                     android:layout_width="wrap_content"
@@ -67,6 +70,7 @@
                         app:srcCompat="@drawable/ic_baseline_favorite_24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/addToWishlistButton"
                         android:layout_marginEnd="8dp"
                         app:elevation="0dp"
                         />

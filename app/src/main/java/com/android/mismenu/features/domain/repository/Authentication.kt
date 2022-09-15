@@ -33,7 +33,7 @@ class AuthenticationImpl @Inject constructor(private val auth: FirebaseAuth) : A
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity()){
                 task -> if(task.isSuccessful){
             Log.d(ContentValues.TAG, "signInUserWithEmail:success")
-            val user = auth.currentUser
+            //val user = auth.currentUser
         }else{
             Log.w(ContentValues.TAG,"signInUserWithEmail:failure", task.exception)
         }

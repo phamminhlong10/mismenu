@@ -9,7 +9,7 @@ interface CartDao {
     @Query("SELECT * FROM CartEntity")
     fun getAllItemInCart(): LiveData<List<CartEntity>>
 
-    @Insert
+    @Insert()
     fun addItemToCart(cartEntity: CartEntity)
 
     @Delete

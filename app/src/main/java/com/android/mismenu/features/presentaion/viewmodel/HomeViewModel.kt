@@ -1,13 +1,14 @@
 package com.android.mismenu.features.presentaion.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.*
 import com.android.mismenu.core.util.Utils
+import com.android.mismenu.features.domain.data.entities.asWishlistEntity
 import com.android.mismenu.features.domain.entities.Category
 import com.android.mismenu.features.domain.entities.Product
 import com.android.mismenu.features.domain.repository.Authentication
+import com.android.mismenu.features.domain.repository.LocalRepository
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -19,39 +20,56 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val authentication: Authentication, private val fireStore: FirebaseFirestore, private val util: Utils):ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val authentication: Authentication,
+    private val fireStore: FirebaseFirestore,
+    private val util: Utils,
+    private val localRepository: LocalRepository
+):ViewModel() {
+
+    //Title
     private val _welcomeTitle = MutableLiveData<String>()
     val welcomeTitle: LiveData<String>
     get() = _welcomeTitle
-
+    //List categories
     private val _listCategories = MutableLiveData<List<Category>>()
     val listCategory: LiveData<List<Category>>
         get() = _listCategories
-
-    private val _listNewArrivalProducts = MutableLiveData<List<Product>>()
-    val listArrivalProduct: LiveData<List<Product>>
+    //List new products
+    private val _listNewArrivalProducts = MutableLiveData<List<Product?>>()
+    val listArrivalProduct: LiveData<List<Product?>>
     get() = _listNewArrivalProducts
 
+    //Item selected to view details
     private val _product = MutableLiveData<Product?>()
     val product: LiveData<Product?>
     get() = _product
 
+    //User
     private val _user = MutableLiveData<FirebaseUser?>()
     val user: LiveData<FirebaseUser?>
         get() = _user
 
+    //Item selected to add to wishlist
+    private val _wishlistItem = MutableLiveData<Product?>()
+    val wishLIstItem: LiveData<Product?>
+    get() = _wishlistItem
+
     init {
-        startGetCategories()
+        startFetch()
         setWelcomeTitle()
         userLogin()
     }
 
-    private fun startGetCategories(){
+    //Fetch list categories & list products
+    private fun startFetch(){
         viewModelScope.launch {
             fetchCategories()
             fetchNewArrivalProducts()
         }
     }
+
+
     private suspend fun fetchCategories(){
         var list = mutableListOf<Category>()
         return withContext(Dispatchers.IO){
@@ -75,6 +93,21 @@ class HomeViewModel @Inject constructor(private val authentication: Authenticati
             }
         }
     }
+    //
+
+    fun onAddToWishlist(){
+        viewModelScope.launch{
+            try {
+                wishLIstItem.value?.let {
+                    addToWishList(it)
+                }
+                _wishlistItem.value = null
+                Log.d("ADD TO Wishlist", "ADD SUCCESSFULLY")
+            }catch (e: Exception){
+                Log.d("ADD TO Wishlist", "FAIL: $e")
+            }
+        }
+    }
 
     private fun setWelcomeTitle(){
         _welcomeTitle.value = util.welcomeText()
@@ -84,6 +117,10 @@ class HomeViewModel @Inject constructor(private val authentication: Authenticati
         _product.value = product
     }
 
+    fun wishlistItemSelected(product: Product){
+        _wishlistItem.value = product
+    }
+
     fun navigatedToDetailProductComplete(){
         _product.value = null
     }
@@ -91,4 +128,13 @@ class HomeViewModel @Inject constructor(private val authentication: Authenticati
     private fun userLogin(){
         _user.value = authentication.currentUser()
     }
+
+    private suspend fun addToWishList(product: Product){
+        return withContext(Dispatchers.IO){
+            val entity = product.asWishlistEntity()
+            localRepository.addItemToWishlist(entity)
+        }
+    }
+
+
 }

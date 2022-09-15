@@ -9,16 +9,19 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class CartEntity(
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val idProduct: String,
     val name: String,
     val price: Int,
-    val image: String
+    val image: String,
+    var size: String,
 ): Parcelable
 
 fun Product.asCartEntity() = CartEntity(
-    id = id!!,
+    idProduct = id!!,
     name = name!!,
     price = price!!,
-    image = imageOfProduct?.get(0)?.urlImage!!
+    image = imageOfProduct?.get(0)?.urlImage!!,
+    size = "",
 )

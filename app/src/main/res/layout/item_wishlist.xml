@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="wishlistEntity"
+            type="com.android.mismenu.features.domain.data.entities.WishlistEntity" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_margin="8dp"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    imageNetwork="@{wishlistEntity.image}"
+                    android:id="@+id/imageItem"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    app:srcCompat="@drawable/mismenu" />
+
+                <LinearLayout
+                    android:padding="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="@{wishlistEntity.name}" />
+
+                    <TextView
+                        android:layout_gravity="bottom"
+                        priceFormat="@{wishlistEntity.price}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:id="@+id/removeItemWishlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remove"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

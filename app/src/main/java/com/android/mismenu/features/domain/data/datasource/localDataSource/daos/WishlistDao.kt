@@ -9,7 +9,7 @@ interface WishlistDao {
     @Query("SELECT * FROM WishlistEntity")
     fun getAllItemInWishList(): LiveData<List<WishlistEntity>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addItemToWishList(wishlistEntity: WishlistEntity)
 
     @Delete

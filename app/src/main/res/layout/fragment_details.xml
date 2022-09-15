@@ -97,6 +97,8 @@
             android:orientation="horizontal">
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/addToWishlist"
+                android:onClick="@{()->viewModel.onAddToWishlist()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -104,7 +106,6 @@
                 />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:onClick="@{() -> viewModel.onAddToCart()}"
                 android:id="@+id/addToCard"
                 app:backgroundTint="@color/purple_200"
                 android:layout_width="match_parent"

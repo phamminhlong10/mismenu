@@ -2,15 +2,17 @@ package com.android.mismenu
 
 import android.content.Context
 import androidx.room.Room
+import com.android.mismenu.core.adapter.ProductAdapter
+import com.android.mismenu.core.util.ClickListener
 import com.android.mismenu.features.domain.data.datasource.localDataSource.daos.CartDao
 import com.android.mismenu.features.domain.data.datasource.localDataSource.Database
 import com.android.mismenu.features.domain.data.datasource.localDataSource.daos.WishlistDao
 import com.android.mismenu.features.domain.repository.Authentication
 import com.android.mismenu.features.domain.repository.AuthenticationImpl
-import com.android.mismenu.features.domain.data.datasource.remoteDataSource.FirestoreManagement
 import com.android.mismenu.features.domain.data.repositories.LocalRepositoryImpl
-import com.android.mismenu.features.domain.data.repositories.ManageCategoryImpl
+import com.android.mismenu.features.domain.data.repositories.OrderRepositoryImpl
 import com.android.mismenu.features.domain.repository.LocalRepository
+import com.android.mismenu.features.domain.repository.OrderRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -30,7 +32,7 @@ abstract class DIContainer{
     abstract fun bindAuthentication(authenticationImpl: AuthenticationImpl): Authentication
 
     @Binds
-    abstract fun bindCategoryImpl(manageCategoryImpl: ManageCategoryImpl): FirestoreManagement
+    abstract fun bindOrderRepository(orderRepositoryImpl: OrderRepositoryImpl): OrderRepository
 
     @Binds
     abstract fun bindLocalRepositoryImpl(localRepositoryImpl: LocalRepositoryImpl): LocalRepository
@@ -47,6 +49,7 @@ object AppModule{
     @Singleton
     @Provides
     fun provideInstanceFirestore() = Firebase.firestore
+
 
     @Singleton
     @Provides

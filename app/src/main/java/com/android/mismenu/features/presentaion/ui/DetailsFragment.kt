@@ -29,7 +29,6 @@ class DetailsFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        turnOffShadowAppBar()
         viewModel.product.observe(viewLifecycleOwner, Observer {
             product -> product?.name?.let { it -> setTitleAppBar(it) }
         })
@@ -49,13 +48,21 @@ class DetailsFragment : BaseFragment() {
 
         binding.pager.adapter = imageAdapter
 
-        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+        binding.chipGroup.setOnCheckedStateChangeListener { group, _ ->
             when(group.checkedChipId){
-                R.id.smallChip -> Log.d("CHIP SELECTED", "Small")
-                R.id.mediumChip -> Log.d("CHIP SELECTED", "Medium")
-                R.id.largeChip -> Log.d("CHIP SELECTED", "Large")
-                R.id.xLargeChip -> Log.d("CHIP SELECTED", "xLarge")
+                R.id.smallChip -> viewModel.setSizeProduct("small")
+                R.id.mediumChip -> viewModel.setSizeProduct("medium")
+                R.id.largeChip -> viewModel.setSizeProduct("large")
+                R.id.xLargeChip -> viewModel.setSizeProduct("XL")
                 else -> Log.d("CHIP SELECTED", "Do not have id equals ${group.checkedChipId}")
+            }
+        }
+
+        binding.addToCard.setOnClickListener {
+            if(viewModel.size.value != null){
+                viewModel.onAddToCart()
+            }else{
+                Toast.makeText(activity, "Aw! You still not select size", Toast.LENGTH_LONG).show()
             }
         }
 
