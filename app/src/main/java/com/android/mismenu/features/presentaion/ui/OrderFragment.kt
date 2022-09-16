@@ -34,19 +34,17 @@ class OrderFragment : BaseFragment() {
         binding.viewModel = viewModel
 
         binding.sentOrder.setOnClickListener {
-            popUpAlertDialog(this@OrderFragment.requireContext(), "Confrim", "Do you reaaa").setNegativeButton("Deline"){
+            popUpAlertDialog(this@OrderFragment.requireContext(), "Confirm", "Your order will be sent to us").setNegativeButton("Cancel"){
                     dialog, _ -> dialog.cancel()
-            }.setPositiveButton("Accept"){
+            }.setPositiveButton("Confirm"){
                     dialog, which -> viewModel.orderItems.observe(viewLifecycleOwner, Observer {
-                        it?.let {
-                            viewModel.onSentOrder()
-                            this.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToHomeFragment())
-                        }
+                it?.let {
+                    viewModel.onSentOrder()
+                    this.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToHomeFragment())
+                }
             })
             }.show()
         }
-
-
         return binding.root
     }
 }

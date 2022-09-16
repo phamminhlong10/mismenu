@@ -61,6 +61,7 @@ class DetailsFragment : BaseFragment() {
         binding.addToCard.setOnClickListener {
             if(viewModel.size.value != null){
                 viewModel.onAddToCart()
+                Toast.makeText(activity, "Added to your cart", Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(activity, "Aw! You still not select size", Toast.LENGTH_LONG).show()
             }

@@ -18,21 +18,18 @@ class OrderViewModel @Inject constructor(private val localRepository: LocalRepos
     val orderItems: LiveData<List<CartEntity>>
     get() = _orderItems
 
-    private val _summary = MutableLiveData<Int>()
-    val summary: LiveData<Int>
-    get() = _summary
+
+    private val _order = MutableLiveData<Order>()
+    val order: LiveData<Order>
+        get() = _order
 
     init {
-        handleArguments()
+        _order.postValue(Order(summary = argumentsSummary()))
     }
 
-    val name = MutableLiveData<String>()
-    val address = MutableLiveData<String>()
-    val phone = MutableLiveData<String>()
 
-    private fun handleArguments(){
-        val summaryPrice = arguments.get<Int>("Summary")
-        _summary.value = summaryPrice!!
+    private fun argumentsSummary(): Int? {
+        return arguments.get<Int>("Summary")
     }
 
     private suspend fun sentOrder(order: Order){
@@ -45,7 +42,7 @@ class OrderViewModel @Inject constructor(private val localRepository: LocalRepos
     fun onSentOrder(){
         viewModelScope.launch() {
             try {
-                val order = Order(null, name.value, address.value,  phone.value, null, _orderItems.value, _summary.value, null)
+                val order = Order(name = _order.value?.name, address = _order.value?.address,  phone = _order.value?.phone,  ItemOrder = _orderItems.value, summary = _order.value?.summary)
                 sentOrder(order)
             }catch (e: Exception){
                 Log.d("Cant added", "FAIL: $e")

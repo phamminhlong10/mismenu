@@ -29,7 +29,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:text="@={viewModel.name}"
+                    android:text="@={viewModel.order.name}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -38,13 +38,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:padding="8dp"
-                android:id="@+id/fieldPhone"
+                android:id="@+id/layoutFieldPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:text="@={viewModel.phone}"
+                    android:id="@+id/fieldPhone"
+                    android:text="@={viewModel.order.phone}"
                     android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
                 android:hint="Address">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:text="@={viewModel.address}"
+                    android:text="@={viewModel.order.address}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
@@ -85,7 +86,7 @@
                 <TextView
                     style="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="@color/design_default_color_error"
-                    priceFormat="@{viewModel.summary}"
+                    priceFormat="@{viewModel.order.summary}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
