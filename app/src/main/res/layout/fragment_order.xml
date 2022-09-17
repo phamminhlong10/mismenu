@@ -20,10 +20,12 @@
             android:layout_height="wrap_content">
 
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:padding="8dp"
                 android:id="@+id/fieldName"
                 android:layout_width="match_parent"
+                app:errorEnabled="true"
                 android:layout_height="wrap_content"
                 android:hint="Full name">
 
@@ -36,31 +38,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:padding="8dp"
-                android:id="@+id/layoutFieldPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Phone">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fieldPhone"
-                    android:text="@={viewModel.order.phone}"
-                    android:inputType="phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:padding="8dp"
-                android:id="@+id/fieldAddress"
+                android:id="@+id/layoutFieldAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:errorEnabled="true"
                 android:hint="Address">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:onTextChanged="@{viewModel::onTextChangeAddress}"
+                    android:id="@+id/fieldAddress"
                     android:text="@={viewModel.order.address}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,6 +57,24 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:padding="8dp"
+                android:id="@+id/layoutFieldPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="Phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldPhone"
+                    android:onTextChanged="@{viewModel::onTextChangePhone}"
+                    android:text="@={viewModel.order.phone}"
+                    android:inputType="phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:padding="8dp"

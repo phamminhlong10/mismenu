@@ -8,10 +8,8 @@ data class Order(
     var address: String? = null,
     var phone: String? = null,
     var email: String? = null,
-    @field:JvmField
     var ItemOrder: List<CartEntity>? = null,
     var summary: Int? = null,
+    @field:JvmField
     var isRead: Boolean? = null
-){
-
-}
+)

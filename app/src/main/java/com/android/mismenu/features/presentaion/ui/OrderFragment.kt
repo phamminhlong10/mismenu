@@ -33,18 +33,36 @@ class OrderFragment : BaseFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+
         binding.sentOrder.setOnClickListener {
-            popUpAlertDialog(this@OrderFragment.requireContext(), "Confirm", "Your order will be sent to us").setNegativeButton("Cancel"){
-                    dialog, _ -> dialog.cancel()
-            }.setPositiveButton("Confirm"){
-                    dialog, which -> viewModel.orderItems.observe(viewLifecycleOwner, Observer {
-                it?.let {
-                    viewModel.onSentOrder()
-                    this.findNavController().navigate(OrderFragmentDirections.actionOrderFragmentToHomeFragment())
-                }
-            })
+            popUpAlertDialog(
+                this@OrderFragment.requireContext(),
+                "Confirm",
+                "Your order will be sent to us"
+            ).setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }.setPositiveButton("Confirm") { dialog, which ->
+                viewModel.orderItems.observe(viewLifecycleOwner, Observer {
+                    it?.let {
+                        viewModel.onSentOrder()
+                        this.findNavController()
+                            .navigate(OrderFragmentDirections.actionOrderFragmentToHomeFragment())
+                    }
+                })
             }.show()
         }
+
+        viewModel.order.observe(viewLifecycleOwner, Observer {
+
+            binding.layoutFieldPhone.error = viewModel.validatePhone()
+            binding.layoutFieldAddress.error = viewModel.validateAddress()
+            if(viewModel.validatePhone() == null && viewModel.validateAddress() == null && !viewModel.order.value?.address.isNullOrEmpty() && !viewModel.order.value?.phone.isNullOrEmpty()){
+                binding.sentOrder.visibility = View.VISIBLE
+            }else{
+                binding.sentOrder.visibility = View.INVISIBLE
+            }
+        })
+
         return binding.root
     }
 }

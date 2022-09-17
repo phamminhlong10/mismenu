@@ -19,17 +19,17 @@ class OrderViewModel @Inject constructor(private val localRepository: LocalRepos
     get() = _orderItems
 
 
-    private val _order = MutableLiveData<Order>()
-    val order: LiveData<Order>
+    private val _order = MutableLiveData<Order?>()
+    val order: LiveData<Order?>
         get() = _order
 
     init {
-        _order.postValue(Order(summary = argumentsSummary()))
+        _order.value = Order(summary = argumentsSummary())
     }
 
 
     private fun argumentsSummary(): Int? {
-        return arguments.get<Int>("Summary")
+       return arguments.get<Int>("Summary")
     }
 
     private suspend fun sentOrder(order: Order){
@@ -49,4 +49,41 @@ class OrderViewModel @Inject constructor(private val localRepository: LocalRepos
             }
         }
     }
+
+    fun validateAddress(): String? {
+         _order.value?.address?.let {
+            if(it.isNullOrEmpty()){
+                return "Invalid address"
+            }
+        }
+        return null
+    }
+
+    fun validatePhone(): String? {
+        _order.value?.phone?.let {
+            if(it.isNullOrEmpty() || it.length != 10){
+                return "Invalid phone number"
+            }
+        }
+        return null
+    }
+
+    fun onTextChangeAddress(text: CharSequence?, start: Int, stop: Int, count: Int){
+        val input = text.toString()
+        val address = _order.value
+        if(input != address?.address){
+            address?.address = input
+            _order.value = address
+        }
+    }
+
+    fun onTextChangePhone(text: CharSequence?, start: Int, stop: Int, count: Int){
+        val input = text.toString()
+        val phone = _order.value
+        if(input != phone?.address){
+            phone?.phone = input
+            _order.value = phone
+        }
+    }
+
 }
