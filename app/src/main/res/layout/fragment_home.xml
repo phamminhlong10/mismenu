@@ -11,56 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.Material3.TitleLarge"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:padding="6dp"
-                    style="@style/TextAppearance.Material3.TitleLarge"
-                    android:text="NEW ARRIVAL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/circularProduct"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:id="@+id/adapterProduct"
-                    android:layout_width="match_parent"
-                    tools:listitem="@layout/item_product"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="@string/new_arrival_label" />
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/circularProduct"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/adapterProduct"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/item_product"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
-                <TextView
-                    android:padding="6dp"
-                    style="@style/TextAppearance.Material3.TitleLarge"
-                    android:text="CATEGORIES"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/circularCategory"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:id="@+id/adapterCategory"
-                    android:layout_width="match_parent"
-                    tools:listitem="@layout/item_category"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
+            <TextView
+                style="@style/TextAppearance.Material3.TitleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="@string/categories_label" />
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/circularCategory"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/adapterCategory"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/item_category"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
-            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

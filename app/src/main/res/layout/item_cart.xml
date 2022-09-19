@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="cartEntity"
@@ -9,57 +10,50 @@
         android:layout_margin="8dp"
         style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/imageItem"
+                imageNetwork="@{cartEntity.image}"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:contentDescription="@string/image_content_description_cart"
+                app:srcCompat="@drawable/mismenu" />
+
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    imageNetwork="@{cartEntity.image}"
-                    android:id="@+id/imageItem"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    app:srcCompat="@drawable/mismenu" />
+                android:padding="8dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:padding="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@{cartEntity.name}" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="@{cartEntity.name}" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@{cartEntity.size.toUpperCase()}" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="@{cartEntity.size.toUpperCase()}" />
+                <TextView
+                    android:layout_gravity="bottom"
+                    priceFormat="@{cartEntity.price}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:layout_gravity="bottom"
-                        priceFormat="@{cartEntity.price}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <Button
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:id="@+id/removeItemInCart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Remove"
-                        />
-                </LinearLayout>
+                <Button
+                    android:id="@+id/removeItemInCart"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove_text" />
             </LinearLayout>
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

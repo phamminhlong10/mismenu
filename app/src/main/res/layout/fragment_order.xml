@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.android.mismenu.features.presentaion.viewmodel.OrderViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".features.presentaion.ui.OrderFragment">
 
         <LinearLayout
@@ -19,60 +19,56 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-
             <com.google.android.material.textfield.TextInputLayout
-                android:padding="8dp"
                 android:id="@+id/fieldName"
                 android:layout_width="match_parent"
-                app:errorEnabled="true"
                 android:layout_height="wrap_content"
-                android:hint="Full name">
+                android:hint="@string/full_name_text"
+                android:padding="8dp"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
 
-                    android:text="@={viewModel.order.name}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:text="@={viewModel.order.name}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:padding="8dp"
                 android:id="@+id/layoutFieldAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:hint="Address">
+                android:hint="@string/address_text"
+                android:padding="8dp"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:onTextChanged="@{viewModel::onTextChangeAddress}"
                     android:id="@+id/fieldAddress"
-                    android:text="@={viewModel.order.address}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:onTextChanged="@{viewModel::onTextChangeAddress}"
+                    android:text="@={viewModel.order.address}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:padding="8dp"
                 android:id="@+id/layoutFieldPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:hint="Phone">
+                android:hint="@string/phone_text"
+                android:padding="8dp"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPhone"
-                    android:onTextChanged="@{viewModel::onTextChangePhone}"
-                    android:text="@={viewModel.order.phone}"
-                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:inputType="phone"
+                    android:onTextChanged="@{viewModel::onTextChangePhone}"
+                    android:text="@={viewModel.order.phone}"
+                    tools:ignore="TextContrastCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,10 +81,10 @@
 
                 <TextView
                     style="@style/TextAppearance.Material3.TitleMedium"
-                    android:textColor="@color/design_default_color_error"
-                    android:text="Summary: "
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_text"
+                    android:textColor="@color/design_default_color_error" />
 
                 <TextView
                     style="@style/TextAppearance.Material3.TitleMedium"
@@ -101,13 +97,16 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_alignParentBottom="true"
             android:id="@+id/sentOrder"
-            app:backgroundTint="@color/purple_200"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Order" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/order_text"
+            app:backgroundTint="@color/purple_200" />
 
     </RelativeLayout>
 </layout>

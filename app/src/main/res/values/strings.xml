@@ -2,4 +2,22 @@
     <string name="app_name">Mismenu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="process_to_checkout_text">Process to checkout</string>
+    <string name="summary_text">Summary</string>
+    <string name="sold_out_text">SOLD OUT</string>
+    <string name="add_to_cart_text">Add to cart</string>
+    <string name="wishlist_text">Wishlist</string>
+    <string name="product_size_label">Product size</string>
+    <string name="small_chip_text">Small</string>
+    <string name="medium_chip_text">Medium</string>
+    <string name="large_chip_text">Large</string>
+    <string name="xlarge_chip_text">XL</string>
+    <string name="new_arrival_label">NEW ARRIVAL</string>
+    <string name="categories_label">CATEGORIES</string>
+    <string name="order_text">Order</string>
+    <string name="phone_text">Phone</string>
+    <string name="full_name_text">Full name</string>
+    <string name="address_text">Address</string>
+    <string name="remove_text">Remove</string>
+    <string name="image_content_description_cart">Image of Product</string>
 </resources>
