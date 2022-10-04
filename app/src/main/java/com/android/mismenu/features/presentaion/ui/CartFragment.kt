@@ -54,7 +54,9 @@ class CartFragment : BaseFragment() {
         binding.processToCheckout.setOnClickListener {
             viewModel.summaryPrice.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    this.findNavController().navigate(CartFragmentDirections.actionCartFragmentToOrderFragment(it))
+                    if(it != 0){
+                        this.findNavController().navigate(CartFragmentDirections.actionCartFragmentToOrderFragment(it))
+                    }
                 }
             })
         }

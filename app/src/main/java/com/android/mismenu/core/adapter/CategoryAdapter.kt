@@ -2,6 +2,8 @@ package com.android.mismenu.core.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +11,7 @@ import com.android.mismenu.databinding.ItemCategoryBinding
 import com.android.mismenu.features.domain.entities.Category
 import javax.inject.Inject
 
-class CategoryAdapter : ListAdapter<Category, CategoryAdapter.ViewHolder>(DiffCallBackCategory()) {
+class CategoryAdapter : ListAdapter<Category, CategoryAdapter.ViewHolder>(DiffCallBackCategory()) /*Filterable*/{
     class ViewHolder(private val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category){
             binding.category = category

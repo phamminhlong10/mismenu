@@ -5,6 +5,7 @@ import com.android.mismenu.features.domain.data.entities.WishlistEntity
 import com.android.mismenu.features.domain.entities.Product
 import com.android.mismenu.features.presentaion.viewmodel.CartViewModel
 import com.android.mismenu.features.presentaion.viewmodel.HomeViewModel
+import com.android.mismenu.features.presentaion.viewmodel.SearchViewModel
 import com.android.mismenu.features.presentaion.viewmodel.WishlistViewModel
 
 interface ClickListener {
@@ -46,6 +47,16 @@ class ClickListenerItemInCart(private val viewModel: CartViewModel): ClickListen
 
     override fun <T> onClickViewInsideViewHolder(item: T) {
         viewModel.removeItemSelected(item as CartEntity)
+    }
+}
+
+class ClickListenerItemInSearch(private val viewModel: SearchViewModel): ClickListener{
+    override fun <T> onItemClickListener(item: T) {
+        viewModel.itemSelected(item as Product)
+    }
+
+    override fun <T> onClickViewInsideViewHolder(item: T) {
+        TODO("Not yet implemented")
     }
 
 }

@@ -21,11 +21,15 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigate = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavigate, navController)
-        setupActionBarWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.homeFragment, R.id.searchFragment
+        ))
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener{_, destination, _ ->
             when(destination.id){
                 R.id.homeFragment -> bottomNavigate.visibility = View.VISIBLE
+                R.id.searchFragment -> bottomNavigate.visibility = View.VISIBLE
                 else -> bottomNavigate.visibility = View.GONE
             }
         }
