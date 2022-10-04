@@ -58,5 +58,4 @@ class ClickListenerItemInSearch(private val viewModel: SearchViewModel): ClickLi
     override fun <T> onClickViewInsideViewHolder(item: T) {
         TODO("Not yet implemented")
     }
-
 }

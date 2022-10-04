@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment() {
         })
 
         //Add item to wishlist
-        viewModel.wishLIstItem.observe(viewLifecycleOwner, Observer {
+        viewModel.wishListItem.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewModel.onAddToWishlist()
             }

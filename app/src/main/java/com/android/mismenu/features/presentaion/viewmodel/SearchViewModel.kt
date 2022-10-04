@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.mismenu.features.domain.entities.Product
+import com.android.mismenu.features.domain.repository.ProductRepository
+import com.android.mismenu.features.domain.repository.ResultsCallback
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
@@ -15,7 +17,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(val fireStore: FirebaseFirestore): ViewModel() {
+class SearchViewModel @Inject constructor(val fireStore: FirebaseFirestore, private val productRepository: ProductRepository): ViewModel() {
     private val _listFilter = MutableLiveData<List<Product>?>()
     val listFilter: LiveData<List<Product>?>
     get() = _listFilter
@@ -30,7 +32,16 @@ class SearchViewModel @Inject constructor(val fireStore: FirebaseFirestore): Vie
 
     private fun loadData(){
         viewModelScope.launch {
-            fetchNewArrivalProducts()
+            productRepository.getAllProducts(object : ResultsCallback{
+                override fun onListProductsCallback(list: List<Product>) {
+                    _listFilter.value = list
+                }
+
+                override fun onProductCallback(product: Product?) {
+                    TODO("Not yet implemented")
+                }
+
+            })
         }
     }
 
@@ -40,17 +51,5 @@ class SearchViewModel @Inject constructor(val fireStore: FirebaseFirestore): Vie
 
     fun navigateToDetailsComplete(){
         _item.value = null
-    }
-
-    private suspend fun fetchNewArrivalProducts(){
-        var listProduct = mutableListOf<Product>()
-        return withContext(Dispatchers.IO){
-            fireStore.collection("product").orderBy("timeAdded", Query.Direction.DESCENDING).get().addOnSuccessListener { collectionsSnapshot  ->
-                for (item in collectionsSnapshot){
-                    listProduct.add(item.toObject<Product>())
-                }
-                _listFilter.value = listProduct
-            }
-        }
     }
 }

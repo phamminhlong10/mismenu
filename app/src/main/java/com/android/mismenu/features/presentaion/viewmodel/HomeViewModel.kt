@@ -9,6 +9,8 @@ import com.android.mismenu.features.domain.entities.Category
 import com.android.mismenu.features.domain.entities.Product
 import com.android.mismenu.features.domain.repository.Authentication
 import com.android.mismenu.features.domain.repository.LocalRepository
+import com.android.mismenu.features.domain.repository.ProductRepository
+import com.android.mismenu.features.domain.repository.ResultsCallback
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -24,21 +26,24 @@ class HomeViewModel @Inject constructor(
     private val authentication: Authentication,
     private val fireStore: FirebaseFirestore,
     private val util: Utils,
-    private val localRepository: LocalRepository
+    private val localRepository: LocalRepository,
+    private val productRepository: ProductRepository
 ):ViewModel() {
 
     //Title
     private val _welcomeTitle = MutableLiveData<String>()
     val welcomeTitle: LiveData<String>
     get() = _welcomeTitle
+
     //List categories
     private val _listCategories = MutableLiveData<List<Category>>()
     val listCategory: LiveData<List<Category>>
         get() = _listCategories
+
     //List new products
     private val _listNewArrivalProducts = MutableLiveData<List<Product?>>()
     val listArrivalProduct: LiveData<List<Product?>>
-    get() = _listNewArrivalProducts
+        get() = _listNewArrivalProducts
 
     //Item selected to view details
     private val _product = MutableLiveData<Product?>()
@@ -52,7 +57,7 @@ class HomeViewModel @Inject constructor(
 
     //Item selected to add to wishlist
     private val _wishlistItem = MutableLiveData<Product?>()
-    val wishLIstItem: LiveData<Product?>
+    val wishListItem: LiveData<Product?>
     get() = _wishlistItem
 
     init {
@@ -65,7 +70,18 @@ class HomeViewModel @Inject constructor(
     private fun startFetch(){
         viewModelScope.launch {
             fetchCategories()
-            fetchNewArrivalProducts()
+
+
+            productRepository.getNewArrivalOfProducts(object : ResultsCallback{
+                override fun onListProductsCallback(list: List<Product>) {
+                    _listNewArrivalProducts.value = list
+                }
+
+                override fun onProductCallback(product: Product?) {
+                    TODO("Not yet implemented")
+                }
+
+            })
         }
     }
 
@@ -82,23 +98,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchNewArrivalProducts(){
-        var listProduct = mutableListOf<Product>()
-        return withContext(Dispatchers.IO){
-            fireStore.collection("product").orderBy("timeAdded", Query.Direction.DESCENDING).get().addOnSuccessListener { collectionsSnapshot  ->
-                for (item in collectionsSnapshot){
-                    listProduct.add(item.toObject<Product>())
-                }
-                _listNewArrivalProducts.value = listProduct
-            }
-        }
-    }
-    //
 
     fun onAddToWishlist(){
         viewModelScope.launch{
             try {
-                wishLIstItem.value?.let {
+                wishListItem.value?.let {
                     addToWishList(it)
                 }
                 _wishlistItem.value = null

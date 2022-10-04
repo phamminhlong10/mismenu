@@ -13,7 +13,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderViewModel @Inject constructor(private val localRepository: LocalRepository, private val arguments: SavedStateHandle, private val orderRepository: OrderRepository) : ViewModel() {
+class OrderViewModel @Inject constructor(private val localRepository: LocalRepository,
+                                         private val arguments: SavedStateHandle,
+                                         private val orderRepository: OrderRepository) : ViewModel() {
     private val _orderItems = localRepository.getAllCartItems()
     val orderItems: LiveData<List<CartEntity>>
     get() = _orderItems

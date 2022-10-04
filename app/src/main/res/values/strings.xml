@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="process_to_checkout_text">Process to checkout</string>
-    <string name="summary_text">Summary</string>
+    <string name="summary_text">Summary: </string>
     <string name="sold_out_text">SOLD OUT</string>
     <string name="add_to_cart_text">Add to cart</string>
     <string name="wishlist_text">Wishlist</string>
